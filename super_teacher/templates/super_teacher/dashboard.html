@@ -7,4 +7,14 @@
 {% block main %}
     <h1>Welcome</h1>
     <h2>Find your professor</h2>
+
+    <section>
+        {% for service in services%}
+            <div>
+                <h2>{{service.subject}}</h2>
+                <p>{{service.description}}</p>
+                <h3>${{service.price}}</h3>
+            </div>
+        {% endfor %}
+    </section>
 {% endblock main %}

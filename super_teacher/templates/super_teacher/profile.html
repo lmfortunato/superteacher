@@ -22,12 +22,17 @@
         {% endif %}
     </form>
 
-    <div>
-        {% if professor%}
-        <h1>Profile information</h1>
-        {% endif %}
-        <h2>{{professor.name}}</h2>
-        <h3>{{professor.email}}</h3>
-        <h3>{{professor.phone_number}}</h3>
-    </div>
+    {% if professor%}
+        <section>
+            <div>
+                <h1>Profile information</h1>
+                <h2>{{professor.name}}</h2>
+                <h3>{{professor.email}}</h3>
+                <h3>{{professor.phone_number}}</h3>
+            </div>
+            <div>
+                <a href="{% url 'service' %}">Promote your classes</a>
+            </div>
+        </section>
+    {% endif %}
 {% endblock main %}

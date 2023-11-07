@@ -2,13 +2,17 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.db.models import Q
 
-from super_teacher.models import User, Professor
-from super_teacher.forms import SignUpForm, ProfileForm
+from super_teacher.models import User, Professor, Service
+from super_teacher.forms import SignUpForm, ProfileForm, CreateServiceForm
 
 def dashboard(request):
+    context = {
+        'services' : Service.objects.all()
+    }
     http_response = render(
         request = request, 
-        template_name = "super_teacher/dashboard.html"
+        template_name = "super_teacher/dashboard.html",
+        context = context
     )
     return http_response
 
@@ -95,3 +99,39 @@ def profile(request):
         context = {'form' : form, 'image': 'assets/avatar.png'}
     )
     return http_response
+
+def create_service(request):
+    if request.method == "POST":
+        form = CreateServiceForm(request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data
+            subject = data["subject"]
+            description = data["description"]
+            price = data["price"]
+
+            new_service = Service(subject = subject, description = description, price = price)
+            new_service.save()
+
+            successful_url = reverse('dashboard')
+            return redirect(successful_url)
+
+    else:
+        form = CreateServiceForm()
+    http_response = render(
+        request = request,
+        template_name = 'super_teacher/create-service.html',
+        context = {'form' : form}
+    )
+    return http_response
+
+# def list_services(request):
+#     context = {
+#         'services' : Service.objects.all()
+#     }
+#     http_response = render(
+#         request = request, 
+#         template_name = 'super_teacher/dashboard.html',
+#         context = context
+#     )
+#     return http_response

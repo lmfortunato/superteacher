@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Superteacher - Create Service</title>
+{% endblock title %}
+
+{% block main %}
+    <h1>Create your service and start giving private classes</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_div}}
+        <input type="submit" value="Create Service">
+    </form>
+    <a href="{% url 'dashboard' %}">Go back home</a>
+{% endblock main %}
