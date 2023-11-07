@@ -1,0 +1,33 @@
+{% extends "base_2.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Superteacher - Profile</title>
+{% endblock title %}
+
+{% block image %}
+    <img src="{% static 'assets/avatar.webp' %}">
+{% endblock image%}
+
+{% block main %}
+{% if form %}
+        <h1>Profile</h1>
+        <h2>Create your professor account</h2>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_div}}
+        {% if form %}
+            <input type="submit" value="Create profile">
+        {% endif %}
+    </form>
+
+    <div>
+        {% if professor%}
+        <h1>Profile information</h1>
+        {% endif %}
+        <h2>{{professor.name}}</h2>
+        <h3>{{professor.email}}</h3>
+        <h3>{{professor.phone_number}}</h3>
+    </div>
+{% endblock main %}
