@@ -1,34 +1,41 @@
 {% extends "base_2.html" %}
+{% load static %}
 
 {% block title %}
     <title>Superteacher - Home</title>
 {% endblock title %}
 
 {% block main %}
-    <section>
-        <h1>Welcome</h1>
-        <h2>Find your professor</h2>
-        <a href="{% url 'dashboard' %}">All services</a>
-        <form action="{% url 'search_service'%}" method="post">
+    <main class="main-dashboard">
+        <section class="banner-dashboard">
+            <h1>Welcome to Superteacher</h1>
             <h3>What do you want to learn?</h3>
-            {% csrf_token %}
-            <input type="text" name="search">
-            <input type="submit" value="Search">
-        </form>
-    </section>
-    <section>
-        {% if services%}
-            {% for service in services%}
-                <div>
-                    <h2>{{service.subject}}</h2>
-                    <p>{{service.description}}</p>
-                    <h3>${{service.price}}</h3>
+            <form action="{% url 'search_service'%}" method="post">
+                {% csrf_token %}
+                <input type="text" name="search">
+                <input class="submit" type="submit" value="Search">
+            </form>
+        </section>
+        <section class="services">
+            <a href="{% url 'dashboard' %}">List all services</a>
+            {% if services%}
+                <div class="services-list">
+                    {% for service in services%}
+                        <div class="card">
+                            <img src="{% static 'assets/cards.webp' %}" alt="classes">
+                            <div class="card-text">
+                                <h2>{{service.subject}}</h2>
+                                <p>{{service.description}}</p>
+                                <h3>${{service.price}} /hr</h3>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% else %}
+                        <div>
+                            <h2>Your search returned no results</h2>
+                        </div>
+                    {% endif %}
                 </div>
-            {% endfor %}
-        {% else %}
-            <div>
-                <h2>Your search returned no results</h2>
-            </div>
-        {% endif %}
-    </section>
+        </section>
+    </main>
 {% endblock main %}

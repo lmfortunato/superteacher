@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+<!-- {% load static %} -->
+
+{% block title %}
+    <title>Superteacher - Index</title>
+{% endblock title %}
+
+{% block main %}
+    <main class="main-index">
+        <h1>Welcome to SuperTeacher</h1>
+        <h2>Find your ideal professor</h2>
+        <a href="{% url 'sign_up' %}">Access here</a>
+    </main>
+{% endblock main %}
