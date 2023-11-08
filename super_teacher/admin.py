@@ -1,3 +1,6 @@
 from django.contrib import admin
+from super_teacher.models import User, Professor, Service
 
-# Register your models here.
+admin.site.register(User)
+admin.site.register(Professor)
+admin.site.register(Service)

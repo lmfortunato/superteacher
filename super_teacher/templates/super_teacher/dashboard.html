@@ -5,16 +5,30 @@
 {% endblock title %}
 
 {% block main %}
-    <h1>Welcome</h1>
-    <h2>Find your professor</h2>
-
     <section>
-        {% for service in services%}
+        <h1>Welcome</h1>
+        <h2>Find your professor</h2>
+        <a href="{% url 'dashboard' %}">All services</a>
+        <form action="{% url 'search_service'%}" method="post">
+            <h3>What do you want to learn?</h3>
+            {% csrf_token %}
+            <input type="text" name="search">
+            <input type="submit" value="Search">
+        </form>
+    </section>
+    <section>
+        {% if services%}
+            {% for service in services%}
+                <div>
+                    <h2>{{service.subject}}</h2>
+                    <p>{{service.description}}</p>
+                    <h3>${{service.price}}</h3>
+                </div>
+            {% endfor %}
+        {% else %}
             <div>
-                <h2>{{service.subject}}</h2>
-                <p>{{service.description}}</p>
-                <h3>${{service.price}}</h3>
+                <h2>Your search returned no results</h2>
             </div>
-        {% endfor %}
+        {% endif %}
     </section>
 {% endblock main %}

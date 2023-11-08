@@ -125,6 +125,23 @@ def create_service(request):
     )
     return http_response
 
+def search_service(request):
+    if request.method == 'POST':
+        data = request.POST
+        search = data['search']
+        # Filter
+        services = Service.objects.filter(subject__contains = search)
+
+        context = {
+            "services" : services
+        }
+        http_response = render(
+            request=request,
+            template_name='super_teacher/dashboard.html',
+            context=context
+        )
+        return http_response
+
 # def list_services(request):
 #     context = {
 #         'services' : Service.objects.all()
