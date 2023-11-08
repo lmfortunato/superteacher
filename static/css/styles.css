@@ -251,7 +251,7 @@ header nav ul li a:hover{
 }
 
 .main-dashboard .services .services-list .card .card-text{
-    height: 150px;
+    height: 185px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
