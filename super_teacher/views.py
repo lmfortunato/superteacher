@@ -96,7 +96,7 @@ def profile(request):
     http_response = render(
         request = request,
         template_name = 'super_teacher/profile.html',
-        context = {'form' : form, 'image': 'assets/avatar.png'}
+        context = {'form' : form}
     )
     return http_response
 

@@ -1,15 +1,22 @@
-{% extends "base.html" %}
+{% extends "base_2.html" %}
+{% load static %}
 
 {% block title %}
     <title>Superteacher - Create Service</title>
 {% endblock title %}
 
 {% block main %}
-    <h1>Create your service and start giving private classes</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{form.as_div}}
-        <input type="submit" value="Create Service">
-    </form>
-    <a href="{% url 'dashboard' %}">Go back home</a>
+    <main class="main-profile">
+        <section class="banner-profile">
+            <h1>Create your service and start giving private classes</h1>
+            <div class="container-profile">
+                <form method="post">
+                    {% csrf_token %}
+                    {{form.as_div}}
+                    <input class="submit" type="submit" value="Create Service">
+                </form>
+                <a href="{% url 'dashboard' %}">Go back home</a>
+            </div>
+        </section>
+    </main>
 {% endblock main %}

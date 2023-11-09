@@ -261,3 +261,138 @@ header nav ul li a:hover{
     font-family: 'Open Sans', sans-serif;
     padding: 0 10px;
 }
+
+/* main profile */
+.banner-profile{
+    background: linear-gradient(to right, #00000073, #00000073), url(./../assets/banner-profile.webp);
+    background-size: cover;
+    height: 85vh;
+    background-position-y: -100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.banner-profile .profile-top{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.banner-profile .profile-top img{
+    width: 100px;
+}
+
+.banner-profile h1{
+    padding-top: 50px;
+    padding-bottom: 10px;
+    font-size: 40px;
+    color: #ffffff;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.banner-profile h2{
+    font-size: 30px;
+    color: #ffffff;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.main-profile .container-profile, .container-profile-details{
+    width: 320px;
+    height: 300px;
+    background-color: #ffffff8c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;  
+    font-family: 'Open Sans', sans-serif;
+    color: #1C1F30;
+    border-radius: 20px 0 20px 0;
+}
+
+/* .main-profile .container-profile h2{
+    text-align: center;
+} */
+
+.main-profile .container-profile form{
+    display: flex;
+    flex-direction: column;
+}
+
+.main-profile .container-profile form div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-profile .container-profile form div label{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+}
+
+.main-profile .container-profile form div input{
+    width: 200px;
+    height: 20px;
+    border: 1px solid #1C1F30;
+    border-radius: 3px;
+    outline: none;
+}
+
+.main-profile .container-profile form div input:focus{
+    outline: none;
+}
+
+.main-profile .container-profile form .submit{
+    color: #ffffff;
+    background-color: #1C1F30;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Open Sans', sans-serif;
+    border: 2px solid transparent;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.main-profile .container-profile a{
+    /* text-decoration: none; */
+    color: #1C1F30;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.container-profile-details a{
+    color: #ffffff;
+    background-color: #1C1F30;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Open Sans', sans-serif;
+    border: 2px solid transparent;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.container-profile-details div{
+    padding: 10px;
+}
+
+.container-profile-details div h3{
+    padding-bottom: 10px;
+}
+
+.container-profile-details h2{
+    color: #1C1F30;
+}
+
+.container-profile form div textarea{
+    width: 200px;
+    height: 95px;
+}
+
+.center{
+    text-align: center;
+}

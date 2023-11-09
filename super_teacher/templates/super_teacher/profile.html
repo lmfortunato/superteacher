@@ -5,34 +5,44 @@
     <title>Superteacher - Profile</title>
 {% endblock title %}
 
-{% block image %}
-    <img src="{% static 'assets/avatar.webp' %}">
-{% endblock image%}
+{% comment %} {% block image %}
+    
+{% endblock image%} {% endcomment %}
 
 {% block main %}
-{% if form %}
-        <h1>Profile</h1>
-        <h2>Create your professor account</h2>
-    {% endif %}
-    <form method="post">
-        {% csrf_token %}
-        {{form.as_div}}
+    <main class="main-profile">
         {% if form %}
-            <input type="submit" value="Create profile">
+            <section>
+                <div class="banner-profile">
+                    <h1>Profile</h1>
+                    <div class="container-profile">
+                        <h2 class="center">Create your professor account</h2>
+                        <form method="post">
+                            {% csrf_token %}
+                            {{form.as_div}}
+                            <input class="submit" type="submit" value="Create profile">
+                        </form>
+                    </div>
+                </div>
+            </section>
         {% endif %}
-    </form>
-
-    {% if professor%}
-        <section>
-            <div>
-                <h1>Profile information</h1>
-                <h2>{{professor.name}}</h2>
-                <h3>{{professor.email}}</h3>
-                <h3>{{professor.phone_number}}</h3>
-            </div>
-            <div>
-                <a href="{% url 'service' %}">Promote your classes</a>
-            </div>
-        </section>
-    {% endif %}
+        {% if professor%}
+            <section>
+                <div class="banner-profile">
+                    <div class="profile-top">
+                        <h1>Profile information</h1>
+                        <img src="{% static 'assets/avatar.webp' %}">
+                    </div>
+                    <div class="container-profile-details">
+                        <h2>{{professor.name}}</h2>
+                        <div>
+                            <h3>Email: {{professor.email}}</h3>
+                            <h3>Phone: {{professor.phone_number}}</h3>
+                        </div>
+                        <a href="{% url 'service' %}">Promote your classes</a>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+    </main>
 {% endblock main %}
