@@ -6,11 +6,10 @@ Una aplicación para ofrecer clases particulares
 
 ## Installation
 
-Instalar proyecto con pip
+Para ejecutar el proyecto
 
 ```bash
-  pip install django_project
-  cd django_project
+  python manage.py runserver
 ```
 ### Superuser:
 Usuario: user
