@@ -16,8 +16,10 @@
                 <h3>Professor: {{object.creator.first_name}} {{object.creator.last_name}}</h3>
                 {% if user.is_authenticated %}
                     <h3>Email: {{object.creator.email}}</h3>
+                {% else %}
+                    <p>You must log in to see the professor's contact information</p>
                 {% endif %}
-                <h4>${{object.price}}/hour</h4>
+                <h4>${{object.price}} /hr</h4>
                 <a href="{% url 'dashboard' %}">Go back home</a>
             </div>
         </section>

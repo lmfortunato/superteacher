@@ -84,6 +84,7 @@ def add_avatar(request):
         context={'formAvatar' : form}
     )
 
+@login_required
 def update_avatar(request, id):
     user = request.user
     avatar = Avatar.objects.get(id=id)
