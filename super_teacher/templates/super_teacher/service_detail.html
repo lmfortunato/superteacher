@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Superteacher - Class Detail</title>
+{% endblock title %}
+
+{% block main %}
+    <main class="main-profile">
+        <section class="banner-profile">
+            <h1>Class details</h1>
+            <div class="container-profile">
+                <h2>Subject: {{object.subject}}</h2>
+                <h3>Description: </h3>
+                <p>{{object.description}}</p>
+                <h3>Professor: {{object.creator.first_name}} {{object.creator.last_name}}</h3>
+                {% if user.is_authenticated %}
+                    <h3>Email: {{object.creator.email}}</h3>
+                {% endif %}
+                <h4>${{object.price}}/hour</h4>
+                <a href="{% url 'dashboard' %}">Go back home</a>
+            </div>
+        </section>
+    </main>
+{% endblock main %}

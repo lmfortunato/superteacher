@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.db.models import Q
-
-from super_teacher.models import User, Professor, Service
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.contrib.auth.models import User
+from super_teacher.models import Service
 from super_teacher.forms import SignUpForm, ProfileForm, CreateServiceForm
 
 def dashboard(request):
@@ -16,90 +19,20 @@ def dashboard(request):
     )
     return http_response
 
-def sign_up(request):
-    if request.method == "POST":
-        form = SignUpForm(request.POST)
-
-        if form.is_valid():
-            data = form.cleaned_data
-            username = data["username"]
-            password = data["password"]
-
-            new_user = User(username = username, password = password)
-            new_user.save()
-
-            successful_url = reverse('login')
-            return redirect(successful_url)
-
-    else:
-        form = SignUpForm()
-    http_response = render(
-        request = request,
-        template_name = 'super_teacher/sign-up.html',
-        context = {'form' : form}
-    )
-    return http_response
-
-def login(request):
-    if request.method == "POST":
-        form = SignUpForm(request.POST)
-
-        if form.is_valid():
-            data = form.cleaned_data
-            username = data["username"]
-            password = data["password"]
-
-            users = User.objects.all()
-            for user in users:
-                if user.username == username and user.password == password:
-                    user_found = user
-                    successful_url = reverse('dashboard')
-                    return redirect(successful_url)
-            failed_login = render(
-                request = request,
-                template_name = 'super_teacher/login.html',
-                context = {'error': "Authentication failed, try again", 'form' : form}
-            )
-            return failed_login
-    else:
-        form = SignUpForm()
-    http_response = render(
-        request = request,
-        template_name = 'super_teacher/login.html',
-        context = {'form' : form}
-    )
-    return http_response
-
+@login_required
 def profile(request):
-    if request.method == "POST":
-        form = ProfileForm(request.POST)
-
-        if form.is_valid():
-            data = form.cleaned_data
-            name = data["name"]
-            email = data["email"]
-            phone_number = data["phone_number"]
-            # photo = data["photo"]
-
-            new_professor = Professor(name = name, email = email, phone_number = phone_number)
-            new_professor.save()
-
-            successful_url = render(
-                request = request,
-                template_name = 'super_teacher/profile.html',
-                context = {'professor' : new_professor}
-            )
-            return successful_url
-
-    else:
-        form = ProfileForm()
+    user = request.user
+    context = {
+        'services' : Service.objects.filter(creator = user)
+    }
     http_response = render(
         request = request,
         template_name = 'super_teacher/profile.html',
-        context = {'form' : form}
+        context = context
     )
     return http_response
 
+@login_required
 def create_service(request):
     if request.method == "POST":
         form = CreateServiceForm(request.POST)
@@ -110,7 +43,7 @@ def create_service(request):
             description = data["description"]
             price = data["price"]
 
-            new_service = Service(subject = subject, description = description, price = price)
+            new_service = Service(subject = subject, description = description, price = price, creator = request.user)
             new_service.save()
 
             successful_url = reverse('dashboard')
@@ -141,6 +74,44 @@ def search_service(request):
             context=context
         )
         return http_response
+    
+def delete_service(request, id):
+    service = Service.objects.get(id=id)
+    if (request.method == "POST"):
+        service.delete()
+        successful_url = reverse('dashboard')
+        return redirect(successful_url)
+    
+def edit_service(request, id):
+    service = Service.objects.get(id=id)
+    if request.method == "POST":
+        form = CreateServiceForm(request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data
+            service.subject = data["subject"]
+            service.description = data["description"]
+            service.price = data["price"]
+
+            service.save()
+
+            successful_url = reverse('dashboard')
+            return redirect(successful_url)
+
+    else:
+        initial = {
+            'subject' : service.subject,
+            'description' : service.description,
+            'price' : service.price
+        }
+
+        form = CreateServiceForm(initial=initial)
+    http_response = render(
+        request = request,
+        template_name = 'super_teacher/create-service.html',
+        context = {'form' : form}
+    )
+    return http_response
 
 # def list_services(request):
 #     context = {
@@ -152,3 +123,7 @@ def search_service(request):
 #         context = context
 #     )
 #     return http_response
+
+class ServiceDetailView(DetailView):
+    model = Service
+    success_url = reverse_lazy('dashboard')

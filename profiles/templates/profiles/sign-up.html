@@ -1,22 +1,19 @@
 {% extends "base.html" %}
 
 {% block title %}
-    <title>Superteacher - Login</title>
+    <title>Superteacher - Sign up</title>
 {% endblock title %}
 
 {% block main %}
     <main class="main-sign-up">
         <div class="container-sign-up">
-            <h1>Login into your account</h1>
-            {% if error %}
-                <h3>{{error}}</h3>
-            {% endif %}
+            <h1>Create an account</h1>
             <form method="post">
                 {% csrf_token %}
                 {{form.as_div}}
-                <input class="submit" type="submit" value="Log In">
+                <input class="submit" type="submit" value="Sign Up">
             </form>
-            <a href="{% url 'sign_up' %}">You don't have an account?</a>
+            <a href="{% url 'login' %}">Already have an account?</a>
         </div>
     </main>
 {% endblock main %}

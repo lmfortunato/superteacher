@@ -1,14 +1,15 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
-from django_project.views import index
-from super_teacher.views import sign_up, login
+from super_teacher.views import dashboard
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", index, name="index"),
-    path("sign-up/", sign_up, name="sign_up"),
-    path("login/", login, name="login"),
-    path("home/", include("super_teacher.urls"))
-    # path("", .as_view(), name="")
+    path("", dashboard, name="dashboard"),
+    path("home/", include("super_teacher.urls")),
+    path("accounts/", include("profiles.urls"))
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

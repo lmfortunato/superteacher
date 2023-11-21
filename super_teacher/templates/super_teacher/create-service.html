@@ -1,4 +1,4 @@
-{% extends "base_2.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block title %}
@@ -13,7 +13,7 @@
                 <form method="post">
                     {% csrf_token %}
                     {{form.as_div}}
-                    <input class="submit" type="submit" value="Create Service">
+                    <input class="submit" type="submit" value="Save">
                 </form>
                 <a href="{% url 'dashboard' %}">Go back home</a>
             </div>

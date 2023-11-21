@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Superteacher - Login</title>
+{% endblock title %}
+
+{% block main %}
+    <main class="main-sign-up">
+        <div class="container-sign-up">
+            <h1>Login into your account</h1>
+            {% if error %}
+                <h3>{{error}}</h3>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                {{form.as_div}}
+                <input class="submit" type="submit" value="Login">
+            </form>
+            <a href="{% url 'sign_up' %}">You don't have an account?</a>
+        </div>
+    </main>
+{% endblock main %}

@@ -1,4 +1,4 @@
-{% extends "base_2.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block title %}
@@ -8,7 +8,11 @@
 {% block main %}
     <main class="main-dashboard">
         <section class="banner-dashboard">
-            <h1>Welcome to Superteacher</h1>
+            {% if user.is_authenticated %}
+                <h1>Welcome to Superteacher, {{ user.first_name }}</h1>
+            {% else %}
+                <h1>Welcome to Superteacher</h1>
+            {% endif %}
             <h3>What do you want to learn?</h3>
             <form action="{% url 'search_service'%}" method="post">
                 {% csrf_token %}
@@ -21,18 +25,19 @@
             {% if services%}
                 <div class="services-list">
                     {% for service in services%}
-                        <div class="card">
-                            <img src="{% static 'assets/cards.webp' %}" alt="classes">
-                            <div class="card-text">
-                                <h2>{{service.subject}}</h2>
-                                <p>{{service.description}}</p>
-                                <h3>${{service.price}} /hr</h3>
+                        <a href="{% url 'service_detail' service.id %}">
+                            <div class="card">
+                                <img src="{% static 'assets/cards.webp' %}" alt="classes">
+                                <div class="card-text">
+                                    <h2>{{service.subject}}</h2>
+                                    <h3>${{service.price}} /hr</h3>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     {% endfor %}
                     {% else %}
                         <div>
-                            <h2>Your search returned no results</h2>
+                            <h2>No results</h2>
                         </div>
                     {% endif %}
                 </div>
