@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Superteacher - Edit Profile</title>
+{% endblock title %}
+
+{% block main %}
+    <main class="main-profile">
+        <section class="banner-create-service">
+            <h1>Edit your profile</h1>
+            {% if form %}
+            <div class="container-profile">
+                <form method="post">
+                    {% csrf_token %}
+                    {{form.as_div}}
+                    <input class="submit" type="submit" value="Save">
+                </form>
+            </div>
+            {% endif %}
+        </section>
+    </main>
+{% endblock main %}
+
+

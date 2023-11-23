@@ -30,7 +30,7 @@
                             {% else %}
                                 <div>
                                     <div class="avatar-container avatar-absolute">
-                                        <img src="{% static 'assets/avatar.webp' %}">
+                                        <img src="{% static 'assets/teacher.svg' %}">
                                     </div>
                                     <a href="{% url 'add_avatar' %}">
                                         <img class="edit-avatar" src="{% static 'assets/edit-1.svg' %}" alt="">
@@ -41,9 +41,11 @@
                             <div class="form-avatar">       
                                 <form method="post" enctype='multipart/form-data'>
                                     {% csrf_token %}
-                                    <label class="label" for="id_image">Choose image <img src="{% static 'assets/camera.svg' %}" ></label>
                                     {{formAvatar.as_div}}
-                                    <input class="submit" type="submit" value="Upload">
+                                    <div class="form-box">
+                                        <input class="submit" type="submit" value="Upload">
+                                        <a class="submit" href="{% url 'profile' %}">Cancel</a>
+                                    </div>
                                 </form>
                             </div>
                         {% endif %}
@@ -66,8 +68,8 @@
                                                     <a class="services-link-profile" href="{% url 'edit_service' service.id %}"><img src="{% static 'assets/edit.svg' %}" alt=""></a>
                                                     <form action="{% url 'delete_service' service.id %}" method="post">
                                                         {% csrf_token %}
-                                                        <label class="services-link-profile" for="delete"><img src="{% static 'assets/trash.svg' %}" alt=""></label>
-                                                        <input id="delete" type="submit" value="Delete">
+                                                        <label class="services-link-profile" for="delete"></label>
+                                                        <button class="services-link-profile" id="delete" type="submit"><img src="{% static 'assets/trash.svg' %}" alt=""></button>
                                                     </form>
                                                 </div>  
                                             {% endif %}
@@ -78,15 +80,6 @@
                         {% else %}
                             <h2 class="text">No services created</h2>
                             <a class="create-service-link" href="{% url 'service' %}">Create service</a>
-                        {% endif %}
-                        {% if form %}
-                            <div>
-                                <form method="post">
-                                    {% csrf_token %}
-                                    {{form.as_div}}
-                                    <input type="submit" value="Save">
-                                </form>
-                            </div>
                         {% endif %}
                 </div>
             </section>

@@ -8,6 +8,7 @@
     {% block title %} {% endblock title %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/superteacher-logo1.png' %}">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
@@ -22,12 +23,25 @@
                     <a href="{% url 'dashboard' %}">Home</a>
                 </li>
                 <li>
-                    <a href="{% url 'profile' %}">Profile</a>
+                    <a href="{% url 'about_me' %}">About me</a>
                 </li>
                 {% if user.is_authenticated %}
                     <li>
-                        <a href="{% url 'logout' %}">Logout</a>
+                        <div class="avatar-nav">
+                            <img  src="{{user.avatar.image.url}}" alt="User avatar">
+                        </div>
+                        <ul>
+                            <li>
+                                <a href="{% url 'profile' %}">Profile</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'logout' %}">Logout</a>
+                            </li>
+                        </ul>
                     </li>
+                    <!-- <li>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </li> -->
                 {% else %}
                     <li>
                         <a href="{% url 'login' %}">Login</a>

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Superteacher - About Me</title>
+{% endblock title %}
+
+{% block main %}
+    <main class="main-about-me">
+        <section class="banner-about-me">
+            <h2>About me</h2>
+            <div class="container-about-me">
+                <div class="container-left">
+                    <div class="container-img">
+                        <img src="{% static 'assets/cv-photo-2.jpg' %}" alt="About me. Lucila Fortunato DevOps">
+                    </div>
+                    <div class="container-social-media">
+                        <h3>Contact me</h3>
+                        <div class="social-media">
+                            <a href="https://www.linkedin.com/in/lucila-fortunato/" target="_blank">
+                                <img class="icon-linkedin" src="{% static 'assets/linkedin-2.svg' %}" alt="Linkedin">
+                            </a>
+                            <a href="https://github.com/lmfortunato" target="_blank">
+                                <img class="icon" src="{% static 'assets/github.svg' %}" alt="GitHub">
+                            </a>
+                            <a href="mailto:lucilamfortunato@gmail.com" target="_blank">
+                                <img class="icon" src="{% static 'assets/email.svg' %}" alt="Email">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-text">
+                    <h1>Lucila Fortunato</h1>
+                    <p>
+                            Who am I?
+                            I'm a highly motivated <strong>DevOps engineer</strong>, experienced in teaching web development and JavaScript. <strong>Skilled in cloud infrastructure, automation, and CI/CD. </strong> <br><br>
+
+                            I am passionate about learning and I have found something I love doing because I never settled. Even though there's still much for me to learn in this huge sea of knowledge and new technologies, that drives me to keep me on my toes still learning and reinventing myself every step of the way. 
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock main %}

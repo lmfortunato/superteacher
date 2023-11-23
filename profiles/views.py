@@ -58,7 +58,7 @@ class CustomLogoutView(LogoutView):
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     form_class = UserUpdateForm
     success_url = reverse_lazy('profile')
-    template_name = 'super_teacher/profile.html'
+    template_name = 'profiles/edit-profile.html'
 
     def get_object(self, queryset=None):
         return self.request.user
@@ -80,7 +80,7 @@ def add_avatar(request):
         form = AvatarForm()
     return render(
         request=request,
-        template_name='super_teacher/profile.html',
+        template_name='profiles/profile.html',
         context={'formAvatar' : form}
     )
 
@@ -102,6 +102,6 @@ def update_avatar(request, id):
 
     return render(
         request=request,
-        template_name='super_teacher/profile.html',
+        template_name='profiles/profile.html',
         context={'formAvatar': form, 'services' : Service.objects.filter(creator = user)}
     )

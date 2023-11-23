@@ -27,7 +27,7 @@ def profile(request):
     }
     http_response = render(
         request = request,
-        template_name = 'super_teacher/profile.html',
+        template_name = 'profiles/profile.html',
         context = context
     )
     return http_response
@@ -113,16 +113,12 @@ def edit_service(request, id):
     )
     return http_response
 
-# def list_services(request):
-#     context = {
-#         'services' : Service.objects.all()
-#     }
-#     http_response = render(
-#         request = request, 
-#         template_name = 'super_teacher/dashboard.html',
-#         context = context
-#     )
-#     return http_response
+def about_me(request):
+    http_response = render(
+        request =  request,
+        template_name = 'super_teacher/about.html'
+    )
+    return http_response
 
 class ServiceDetailView(DetailView):
     model = Service
