@@ -10,75 +10,85 @@
 {% endblock image%} {% endcomment %}
 
 {% block main %}
-    <main class="main-profile">
+    <main class="main-profile container-profile-avatar">
             <section>
                 <div class="banner-profile">
-                    <h1>Profile</h1>
+                    <h1 class="text">Profile</h1>
+                    <h2 class="text">{{user.first_name}} {{user.last_name}}</h2>
+                    <h3 class="text">{{user.email}}</h3>
+                    <a class="services-link" href="{% url 'profile_update'%}">Edit profile</a>
                     <div class="profile-top">
-                        <div>
-                            <h1>{{user.first_name}} {{user.last_name}}</h1>
-                            <h3>{{user.email}}</h3>
-                            <a href="{% url 'profile_update'%}">Edit profile</a>
-                        </div>
                             {% if user.avatar.image %}
                                 <div>
-                                    <img src="{{user.avatar.image.url}}">
-                                    <a href="{% url 'update_avatar' user.avatar.id %}">Change avatar</a>
+                                    <div class="avatar-container avatar-absolute">
+                                        <img src="{{user.avatar.image.url}}">
+                                    </div>
+                                    <a href="{% url 'update_avatar' user.avatar.id %}">
+                                        <img class="edit-avatar" src="{% static 'assets/edit-1.svg' %}" alt="">
+                                    </a>
                                 </div>
                             {% else %}
                                 <div>
-                                    <img src="{% static 'assets/avatar.webp' %}" alt="">
-                                    <a href="{% url 'add_avatar' %}">Añadir avatar</a>
+                                    <div class="avatar-container avatar-absolute">
+                                        <img src="{% static 'assets/avatar.webp' %}">
+                                    </div>
+                                    <a href="{% url 'add_avatar' %}">
+                                        <img class="edit-avatar" src="{% static 'assets/edit-1.svg' %}" alt="">
+                                    </a>
                                 </div>
                             {% endif %}
+                            {% if formAvatar %}
+                            <div class="form-avatar">       
+                                <form method="post" enctype='multipart/form-data'>
+                                    {% csrf_token %}
+                                    <label class="label" for="id_image">Choose image <img src="{% static 'assets/camera.svg' %}" ></label>
+                                    {{formAvatar.as_div}}
+                                    <input class="submit" type="submit" value="Upload">
+                                </form>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
-                {% if services %}
-                    <div>
-                        {% for service in services%}
-                            <a href="{% url 'service_detail' service.id %}">
-                                <div class="card">
-                                    <img src="{% static 'assets/cards.webp' %}" alt="classes">
-                                    <div class="card-text">
-                                        <h2>{{service.subject}}</h2>
-                                        <h3>${{service.price}} /hr</h3>
-                                    </div>
-                                    {% if user == service.creator %}
-                                        <a href="{% url 'edit_service' service.id %}">Edit</a>
-                                        <form action="{% url 'delete_service' service.id %}" method="post">
-                                            {% csrf_token %}
-                                            <input type="submit" value="Delete">
-                                        </form>
-                                    {% endif %}
-                                </div>
-                            </a>
-                        {% endfor %}
-                        <a href="{% url 'service' %}">Create a new service</a>
+                <div class="profile-services">
+                        {% if services %}
+                            <h2 class="text">Your services</h2>
+                            <div class="container-services">
+                                {% for service in services%}
+                                        <div class="card card-services-profile">
+                                            <img class="card-img" src="{% static 'assets/cards.webp' %}" alt="classes">
+                                            <div class="card-text">
+                                                <h2>{{service.subject}}</h2>
+                                                <h3>${{service.price}} /hr</h3>
+                                                <a class="services-link" href="{% url 'service_detail' service.id %}">More details</a>
+                                            </div>
+                                            {% if user == service.creator %}
+                                                <div class="services-link-container">
+                                                    <a class="services-link-profile" href="{% url 'edit_service' service.id %}"><img src="{% static 'assets/edit.svg' %}" alt=""></a>
+                                                    <form action="{% url 'delete_service' service.id %}" method="post">
+                                                        {% csrf_token %}
+                                                        <label class="services-link-profile" for="delete"><img src="{% static 'assets/trash.svg' %}" alt=""></label>
+                                                        <input id="delete" type="submit" value="Delete">
+                                                    </form>
+                                                </div>  
+                                            {% endif %}
+                                        </div>
+                                {% endfor %}
+                            </div>
+                        <a class="create-service-link" href="{% url 'service' %}">Create a new service</a>
                         {% else %}
-                            <h2>No services</h2>
-                            <a href="{% url 'service' %}">Create service</a>
-                    </div>
-                {% endif %}
-                {% if form %}
-                    <div>
-                        <form method="post">
-                            {% csrf_token %}
-                            {{form.as_div}}
-                            <input type="submit" value="Save">
-                        </form>
-                    </div>
-                {% endif %}
-                {% if formAvatar %}
-                    <div>
-                        <h1>Cargar Avatar</h1>
-
-                        <form method="post" enctype='multipart/form-data'>
-                            {% csrf_token %}
-                            {{formAvatar.as_div}}
-                            <input type="submit" value="Upload image">
-                        </form>
-                    </div>
-                {% endif %}
+                            <h2 class="text">No services created</h2>
+                            <a class="create-service-link" href="{% url 'service' %}">Create service</a>
+                        {% endif %}
+                        {% if form %}
+                            <div>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {{form.as_div}}
+                                    <input type="submit" value="Save">
+                                </form>
+                            </div>
+                        {% endif %}
+                </div>
             </section>
     </main>
 {% endblock main %}

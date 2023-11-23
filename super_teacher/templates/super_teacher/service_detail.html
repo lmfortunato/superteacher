@@ -7,10 +7,15 @@
 
 {% block main %}
     <main class="main-profile">
-        <section class="banner-profile">
+        <section class="banner-details">
             <h1>Class details</h1>
-            <div class="container-profile">
+            <div class="container-service">
                 <h2>Subject: {{object.subject}}</h2>
+                {% if object.creator.avatar.image %}
+                    <div class="avatar-container">
+                        <img src="{{object.creator.avatar.image.url}}" alt="Creator">
+                    </div>
+                {% endif %}
                 <h3>Description: </h3>
                 <p>{{object.description}}</p>
                 <h3>Professor: {{object.creator.first_name}} {{object.creator.last_name}}</h3>
@@ -20,7 +25,7 @@
                     <p>You must log in to see the professor's contact information</p>
                 {% endif %}
                 <h4>${{object.price}} /hr</h4>
-                <a href="{% url 'dashboard' %}">Go back home</a>
+                <a class="services-link" href="{% url 'dashboard' %}">Go back home</a>
             </div>
         </section>
     </main>

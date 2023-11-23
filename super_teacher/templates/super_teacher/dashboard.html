@@ -21,19 +21,18 @@
             </form>
         </section>
         <section class="services">
-            <a href="{% url 'dashboard' %}">List all services</a>
+            <a class="list-services" href="{% url 'dashboard' %}">List all services</a>
             {% if services%}
                 <div class="services-list">
                     {% for service in services%}
-                        <a href="{% url 'service_detail' service.id %}">
                             <div class="card">
-                                <img src="{% static 'assets/cards.webp' %}" alt="classes">
+                                <img class="card-img" src="{% static 'assets/cards.webp' %}" alt="classes">
                                 <div class="card-text">
                                     <h2>{{service.subject}}</h2>
                                     <h3>${{service.price}} /hr</h3>
+                                    <a class="services-link" href="{% url 'service_detail' service.id %}">More details</a>
                                 </div>
                             </div>
-                        </a>
                     {% endfor %}
                     {% else %}
                         <div>
