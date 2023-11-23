@@ -27,9 +27,15 @@
                 </li>
                 {% if user.is_authenticated %}
                     <li>
-                        <div class="avatar-nav">
-                            <img  src="{{user.avatar.image.url}}" alt="User avatar">
-                        </div>
+                        {% if user.avatar.image %}
+                            <div class="avatar-nav">
+                                <img  src="{{user.avatar.image.url}}" alt="User avatar">
+                            </div>
+                        {% else %}
+                            <div class="avatar-nav">
+                                <img  src="{% static 'assets/teacher.svg' %}" alt="User avatar">
+                            </div>
+                        {% endif %}
                         <ul>
                             <li>
                                 <a href="{% url 'profile' %}">Profile</a>
